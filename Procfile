@@ -1,1 +1,1 @@
-java -Dserver.port=$PORT -jar target/leo-math-*.jar
+web: java -Dserver.port=$PORT -jar target/leo-math-*.jar
