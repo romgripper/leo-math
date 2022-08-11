@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Leo's Math Practice</title>
 </head>
 <body>
-<ul th:each="question: ${questions}">
-    <li th:text="${question}"></li>
-</ul>
-
+<section>
+    <ul th:each="question: ${questions}">
+        <li>
+            <label th:for="|question${question}|" th:text="${question}"></label>
+            <input th:id="|question${question}|" type="number">
+        </li>
+    </ul>
+</section>
 </body>
 </html>

@@ -21,12 +21,14 @@ public class MultiplicationController {
 
     private List<String> generateQuestions(int count) {
         List<String> questions = new ArrayList<>(count);
-        while (count-- > 0) {
-            int left = MathUtil.random(1, 9);
-            int right = MathUtil.random(1, 9);
+        while (questions.size() != count) {
+            int left = MathUtil.random(2, 9);
+            int right = MathUtil.random(2, 9);
             String question = String.format("%d x %d =", left, right);
-            System.out.println("Creating question: " + question);
-            questions.add(question);
+            if (!questions.contains(question)) {
+                System.out.println("Creating question: " + question);
+                questions.add(question);
+            }
         }
         return questions;
     }
