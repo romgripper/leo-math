@@ -1,0 +1,1 @@
+java -Dserver.port=$PORT -jar target/leo-math-*.jar
