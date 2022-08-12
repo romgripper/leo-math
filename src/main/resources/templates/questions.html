@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Leo's Multiplication Practice</title>
+    <title>Leo's Math Practice</title>
     <style>
         main {
             text-align: center;
@@ -28,10 +28,8 @@
         function check() {
             for (answerElement of document.getElementsByName("answer")) {
                 var question = answerElement.id;
-                question = question.substring("question".length, question.indexOf("=")).replace("x", "*");
+                question = question.substring("question".length, question.indexOf("=")).replace("x", "*").replace("÷", "/");
                 var answer = answerElement.value;
-                console.log(question);
-                console.log(answer);
                 if (calc(question) != answer) {
                     answerElement.style.border="2px solid red";
                     answerElement.style.backgroundColor="yellow";

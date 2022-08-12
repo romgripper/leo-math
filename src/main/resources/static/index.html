@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Leo's Math Practice</title>
     <script>
-        function openMultiplicationPage() {
+        function openMathPage(operation, count, min, max) {
             var now = Date.now();
-            window.open("/multiplication/" + now + "?count=20");
+            window.open(`/${operation}/${now}?count=${count}&min=${min}&max=${max}`);
         }
     </script>
     <style>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <main>
-    <input type="button" value="Multiplication 乘法" onclick="openMultiplicationPage();">
+    <input type="button" value="Multiplication 10以内乘法" onclick="openMathPage('MULTIPLICATION', 20, 2, 9);">
 </main>
 
 </body>
