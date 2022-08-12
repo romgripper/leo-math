@@ -2,16 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Leo's Math Practice</title>
+    <title>Leo's Multiplication Practice</title>
+    <style>
+        main {
+            text-align: center;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            padding: 10px;
+        }
+        .grid-item {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-<section>
-    <ul th:each="question: ${questions}">
-        <li>
+<main>
+    <div class="grid-container">
+        <div class="grid-item" th:each="question: ${questions}">
             <label th:for="|question${question}|" th:text="${question}"></label>
             <input th:id="|question${question}|" type="number">
-        </li>
-    </ul>
-</section>
+        </div>
+    </div>
+    <input type="button" value="Check检查">
+</main>
 </body>
 </html>
