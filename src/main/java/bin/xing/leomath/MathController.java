@@ -16,32 +16,39 @@ public class MathController {
 
     @GetMapping("/{operation}/{timestamp}")
     public String createQuestions(@PathVariable String timestamp,
-                                                @PathVariable Operation operation,
-                                                @RequestParam(defaultValue = "20") int count,
-                                                @RequestParam(defaultValue = "2") int min,
-                                                @RequestParam(defaultValue = "9") int max,
-                                                Model model) {
+                                  @PathVariable Operation operation,
+                                  @RequestParam(defaultValue = "20") int count,
+                                  @RequestParam(defaultValue = "2") int min,
+                                  @RequestParam(defaultValue = "9") int max,
+                                  Model model) {
         model.addAttribute("questions",
-                generateQuestions(operation.getOperator(), count, min, max));
+                generateQuestions(operation, count, min, max));
         return QUESTIONS_PAGE;
     }
 
-    private List<String> generateQuestions(char operator, int count, int min, int max) {
+    private List<String> generateQuestions(Operation operation, int count, int min, int max) {
         List<String> questions = new ArrayList<>(count);
         while (questions.size() != count) {
-            int left = MathUtil.random(min, max);
-            int right = MathUtil.random(min, max);
-            if (operator == '-' && left < right) {
-                int temp = left;
-                left = right;
-                right = temp;
-            }
-            String question = String.format("%d %c %d =", left, operator, right);
+            String question = generateQuestion(operation, min, max);
             if (!questions.contains(question)) {
                 System.out.println("Creating question: " + question);
                 questions.add(question);
             }
         }
         return questions;
+    }
+
+    private String generateQuestion(Operation operation, int min, int max) {
+        int left = MathUtil.random(min, max);
+        int right = MathUtil.random(min, max);
+
+        if (operation == Operation.DIVISION) {
+            left *= right;
+        } else if (operation == Operation.SUBTRACTION && left < right) {
+            int temp = left;
+            left = right;
+            right = temp;
+        }
+        return String.format("%d %c %d =", left, operation.getOperator(), right);
     }
 }
