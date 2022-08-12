@@ -13,19 +13,44 @@
             padding: 10px;
         }
         .grid-item {
+            font-size: 20px;
             padding: 20px;
         }
+        input {
+            font-size: 20px;
+        }
     </style>
+    <script>
+        function calc(question) {
+            return Function(`'use strict'; return (${question})`)();
+        }
+
+        function check() {
+            for (answerElement of document.getElementsByName("answer")) {
+                var question = answerElement.id;
+                question = question.substring("question".length, question.indexOf("=")).replace("x", "*");
+                var answer = answerElement.value;
+                console.log(question);
+                console.log(answer);
+                if (calc(question) != answer) {
+                    answerElement.style.border="2px solid red";
+                    answerElement.style.backgroundColor="yellow";
+                } else {
+                    answerElement.style.backgroundColor="lightseagreen";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 <main>
     <div class="grid-container">
         <div class="grid-item" th:each="question: ${questions}">
             <label th:for="|question${question}|" th:text="${question}"></label>
-            <input th:id="|question${question}|" type="number">
+            <input th:id="|question${question}|" type="number" name="answer">
         </div>
     </div>
-    <input type="button" value="Check检查">
+    <input type="button" value="Check检查" onclick="check();">
 </main>
 </body>
 </html>
