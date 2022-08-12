@@ -6,6 +6,7 @@
     <style>
         main {
             text-align: center;
+            font-size: 20px;
         }
         .grid-container {
             display: grid;
@@ -13,7 +14,6 @@
             padding: 10px;
         }
         .grid-item {
-            font-size: 20px;
             padding: 20px;
         }
         input {
@@ -26,16 +26,27 @@
         }
 
         function check() {
-            for (answerElement of document.getElementsByName("answer")) {
+            var answerElements = document.getElementsByName("answer");
+            var count = answerElements.length;
+            var correctCount = 0;
+            for (answerElement of answerElements) {
                 var question = answerElement.id;
                 question = question.substring("question".length, question.indexOf("=")).replace("x", "*").replace("÷", "/");
                 var answer = answerElement.value;
                 if (calc(question) != answer) {
-                    answerElement.style.border="2px solid red";
-                    answerElement.style.backgroundColor="yellow";
+                    answerElement.style.border = "2px solid red";
+                    answerElement.style.backgroundColor = "yellow";
                 } else {
-                    answerElement.style.backgroundColor="lightseagreen";
+                    answerElement.style.backgroundColor = "lightseagreen";
+                    correctCount = correctCount + 1;
                 }
+            }
+
+            var scoreLabel = document.getElementById("score");
+            scoreLabel.innerHTML = correctCount/count * 100;
+            scoreLabel.style.color = "red";
+            if (correctCount == count) {
+                alert("You get all answers correct! You Are Awesome!");
             }
         }
     </script>
@@ -49,6 +60,7 @@
         </div>
     </div>
     <input type="button" value="Check检查" onclick="check();">
+    <label id="score" style="margin-left: 20px"></label>
 </main>
 </body>
 </html>
