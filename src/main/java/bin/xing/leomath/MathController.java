@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +15,15 @@ public class MathController {
 
     private static final String QUESTIONS_PAGE = "questions";
 
-    @GetMapping("/{operation}/{timestamp}")
-    public String createQuestions(@PathVariable String timestamp,
-                                  @PathVariable Operation operation,
+    @GetMapping("/math/{operation}")
+    public String createQuestions(@PathVariable Operation operation,
                                   @RequestParam(defaultValue = "20") int count,
                                   @RequestParam(defaultValue = "2") int min,
                                   @RequestParam(defaultValue = "9") int max,
                                   Model model) {
         model.addAttribute("questions",
                 generateQuestions(operation, count, min, max));
+        model.addAttribute("dateTime", LocalDateTime.now().toString());
         return QUESTIONS_PAGE;
     }
 

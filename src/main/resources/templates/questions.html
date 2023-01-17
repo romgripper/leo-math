@@ -53,6 +53,7 @@
 </head>
 <body>
 <main>
+    <h1 th:text="${dateTime}"></h1>
     <div class="grid-container">
         <div class="grid-item" th:each="question: ${questions}">
             <label th:for="|question${question}|" th:text="${question}"></label>
