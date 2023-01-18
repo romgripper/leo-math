@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class MathController {
@@ -23,7 +27,13 @@ public class MathController {
                                   Model model) {
         model.addAttribute("questions",
                 generateQuestions(operation, count, min, max));
-        model.addAttribute("dateTime", LocalDateTime.now().toString());
+
+        LocalDateTime aucklandDateTime = ZonedDateTime.now(ZoneId.of("Pacific/Auckland")).toLocalDateTime();
+        String dateTime = aucklandDateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy EEEE HH:mm:ss", Locale.ENGLISH));
+        String chineseDateTime = aucklandDateTime.format(DateTimeFormatter.ofPattern("yyyy年M月dd日EEEE", Locale.SIMPLIFIED_CHINESE));
+        model.addAttribute("dateTime", dateTime);
+        model.addAttribute("chineseDateTime", chineseDateTime);
+
         return QUESTIONS_PAGE;
     }
 
